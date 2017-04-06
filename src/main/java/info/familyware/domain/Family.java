@@ -1,6 +1,7 @@
 package info.familyware.domain;
 
 import javax.persistence.Column;
+import javax.persistence.Table;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-public class Group {
+public class Family {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
