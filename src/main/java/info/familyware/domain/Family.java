@@ -1,32 +1,46 @@
 package info.familyware.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Table;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
+import java.util.Set;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
- 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
 public class Family {
 	
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@NotNull
 	@Size(min=1, max=255)
 	private String name;
+	
+	private Set<User> users;
+	
+//	public Family(){
+//		
+//	}
+//	
+//	public Family(String name){
+//		this.name = name;
+//	}
+//	
+//	public Family(String name, Set<User> users){
+//		this.name = name;
+//		this.users = users;
+//	}
 
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return this.id;
 	}
@@ -42,4 +56,15 @@ public class Family {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	@ManyToMany(mappedBy="families")
+	@JsonBackReference
+	public Set<User> getUsers() {
+		return this.users;
+	}
+	
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+	
 }

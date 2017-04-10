@@ -43,8 +43,8 @@ public class FamilyController {
 	
 	@RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-	Family insertGroup(@Validated @RequestBody Family group) {
-        return familyService.save(group);
+	Family insertGroup(@Validated @RequestBody Family family) {
+        return familyService.save(family);
     }
      
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
