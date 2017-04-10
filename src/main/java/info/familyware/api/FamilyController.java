@@ -31,7 +31,7 @@ public class FamilyController {
 			System.out.println("findByUserId");
 			return familyService.findByUserId(userId.get());
 		}else{
-			System.out.println("findAll");
+			System.out.println("findAll");	//TODO: findAllは後で無効に
 			return familyService.findAll();
 		}
 	}

@@ -27,7 +27,7 @@ public class UserController {
 	UserService userService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	List<User> getUsers(@RequestParam("uuid") Optional<String> uuid) {
+	List<User> getUsers(@RequestParam("uuid") Optional<String> uuid) {	//TODO: UUIDは後で必須に
 		if(uuid.isPresent()){
 			return userService.findByUuid(uuid.get());
 		}else{
