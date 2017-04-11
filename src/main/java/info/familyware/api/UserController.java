@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import info.familyware.domain.FamilyUser;
 import info.familyware.domain.User;
 import info.familyware.service.UserService;
+import info.familyware.service.FamilyUserService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
@@ -25,7 +27,8 @@ import java.util.Optional;
 public class UserController {
 	@Autowired
 	UserService userService;
-
+	@Autowired
+	FamilyUserService familyUserService;
 	@RequestMapping(method = RequestMethod.GET)
 	List<User> getUsers(@RequestParam("uuid") Optional<String> uuid) {	//TODO: UUIDは後で必須に
 		if(uuid.isPresent()){
@@ -51,6 +54,15 @@ public class UserController {
     User updateUser(@PathVariable("id") Long id, @Validated @RequestBody User user) {
       user.setId(id);
       return userService.save(user);
+    }
+    
+    @RequestMapping(value = "{uid}/{fid}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    FamilyUser confirm(@PathVariable("uid") Long uid, @PathVariable("fid") Long fid, @RequestBody FamilyUser familyUser) {
+    	familyUser.setFamily_id(fid);
+    	familyUser.setUser_id(uid);
+    	familyUser.setConfirm(true);
+    	return familyUserService.save(familyUser);
     }
       
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
